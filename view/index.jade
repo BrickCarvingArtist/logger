@@ -1,0 +1,16 @@
+doctype
+html
+	head
+		meta(charset="utf-8")
+		link(rel="stylesheet", href="/css/core.css")
+		each i in style
+			link(rel="stylesheet", href=i)
+		title!= title
+	body
+		.main!= page
+		script(src="/lib/react@0.14.6.min.js")
+		script(src="/lib/react-dom@0.14.6.min.js")
+		script(src="/lib/redux.min.js")
+		script(src="/lib/jquery@2.2.0.min.js")
+		each i in script
+			script(src=i)
