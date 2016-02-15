@@ -14,5 +14,15 @@ export default (router, react, reactDOMServer) => {
 				page : reactDOMServer.renderToString(react.createFactory(home)({}))
 			});
 		});
+	router
+		.route("*")
+		.get((req, res, next) => {
+			res.render("./index", {
+				style : [],
+				script : [],
+				title : "404",
+				page : "访问路径不存在"
+			});
+		});
 	return router;
 }
