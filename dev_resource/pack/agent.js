@@ -4,8 +4,8 @@ import {createStore} from "redux";
 const addZero = (num, length) => {
 	let chars = num.toString().split(""),
 		charsLen = chars.length;
-	if(length - chars.length){
-		for(let i = 0; i <= length - chars.length; i++){
+	if(length - charsLen){
+		for(let i = 0; i < length - charsLen; i++){
 			chars.unshift("0");
 		}
 	}
@@ -36,7 +36,10 @@ class IdInput extends Component{
 	}
 	render(){
 		return (
-			<input placeholder="logId" maxLength="6" onChange={this.handleChange} />
+			<div className="input">
+				<label htmlFor="logId">LogId</label>
+				<input id="logId" placeholder="6-digit LogId number" maxLength="6" onChange={this.handleChange} />
+			</div>
 		);
 	}
 }
@@ -62,9 +65,14 @@ class Filter extends Component{
 			);
 		}
 		return (
-			<select onChange={this.handleChange}>
-				{options}
-			</select>
+			<div className="select">
+				<label htmlFor={this.props.name}>
+					{this.props.label}
+				</label>
+				<select id={this.props.name} defaultValue={option[Object.getOwnPropertyNames(option)[0]]} onChange={this.handleChange}>
+					{options}
+				</select>
+			</div>
 		);
 	}
 }
@@ -99,8 +107,9 @@ class Filters extends Component{
 		let lists = [],
 			filters = this.props.data;
 		filters.map((list, index) => {
+			let filter = this.props.filterType[index];
 			lists.push(
-				<Filter userClass={this} option={list} key={index} name={this.props.filterType[index]} />
+				<Filter userClass={this} option={list} key={index} name={filter.name} label={filter.label} />
 			);
 		});
 		lists.push(
@@ -108,25 +117,44 @@ class Filters extends Component{
 		);
 		return (
 			<div className="filters">
-				<h1>Filters</h1>
+				<h2>Filters</h2>
 				{lists}
 			</div>
 		);
 	}
 }
 Filters.defaultProps = {
-	filterType : ["clientId", "systemId", "browserId"]
+	filterType : [
+		{
+			name : "clientId",
+			label : "Client"
+		},
+		{
+			name : "systemId",
+			label : "System"
+		},
+		{
+			name : "browserId",
+			label : "Browser"
+		}
+	]
 };
 class Result extends Component{
 	constructor(props){
 		super(props);
 	}
 	render(){
-		let data = this.props.data;
+		let data = this.props.data,
+			id = `#${addZero(this.props.index + 1, 3)}.(LogId:${data.id})`;
 		return (
 			<p>
-				<strong>{`${this.props.index + 1}.${data.agent}`}</strong>
-				<em>{Date(data.createTime)}</em>
+				<b>
+					{id}
+				</b>
+				<strong>
+					{data.agent}
+				</strong>
+				<em>{`${new Date(data.createTime)}`}</em>
 			</p>
 		)
 	}
@@ -143,6 +171,9 @@ class Results extends Component{
 			results = this.state.data;
 		if(results.length){
 			if(results instanceof Array){
+				lists[0] = (
+					<h3>found {results.length} items</h3>
+				);
 				results.map((list, index) => {
 					lists.push(
 						<Result data={list} index={index} key={index} />
@@ -164,15 +195,15 @@ class Results extends Component{
 		}
 		return (
 			<div className="result">
-				<h1>Result</h1>
+				<h2>Result</h2>
 				{lists}
 			</div>
 		);
 	}
 }
 Results.defaultProps = {
-	initMsg : "select or input to search",
-	noDataMsg : "sorry, no result to show"
+	initMsg : "Select or input the LogId to search.",
+	noDataMsg : "Sorry, no result to show."
 };
 class Page extends Component{
 	constructor(props){
@@ -187,6 +218,7 @@ class Page extends Component{
 	render(){
 		return (
 			<div className="page">
+				<h1>HTTP访问头日志分析系统</h1>
 				<Filters data={this.props.filter} />
 				<Results ref="result" />
 			</div>

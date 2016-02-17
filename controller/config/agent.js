@@ -1,6 +1,6 @@
 const clientId = {
-		mobile : 1,
-		pc : 2
+		"Mobile" : 1,
+		"PC" : 2
 	},
 	systemId = {
 		"Windows" : 1,

@@ -26,7 +26,7 @@ export default (router, react, reactDOMServer) => {
 				script : [
 					"/js/agent.js"
 				],
-				title : "HTTP访问头日志",
+				title : "HTTP访问头日志分析系统",
 				page : reactDOMServer.renderToString(react.createFactory(agent)({
 					filter : [clientId, systemId, browserId]
 				}))
