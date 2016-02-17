@@ -38,7 +38,7 @@ app.use(express.static(`${__dirname}/resource`, {
 	index : 0,
 	maxAge : 600000
 }));
-app.all("*", (req, res, next) => {
+app.all(/^\/log|^\/api\/log\/func/, (req, res, next) => {
 	SaveLog(req);
 	next();
 });

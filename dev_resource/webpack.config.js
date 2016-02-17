@@ -1,6 +1,8 @@
 module.exports = {
 	entry : {
 		home : "./entry/home",
+		agent : "./entry/agent",
+		func : "./entry/func"
 	},
 	output : {
 		filename : "../resource/js/[name].js"

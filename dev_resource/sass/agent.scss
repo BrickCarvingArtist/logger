@@ -1,0 +1,31 @@
+h1{
+	text-align:center;
+	line-height:2;
+}
+.filters{
+	padding:0 50px;
+	select{
+		margin-right:10px;
+		padding:4px 8px;
+		border:1px solid;
+	}
+	input{
+		color:black;
+		padding:4px 8px;
+		border:1px solid;
+		border-radius:5px;
+	}
+}
+.result{
+	padding:0 50px;
+	p{
+		overflow:hidden;
+		font-size:14px;
+		line-height:1.5;
+		border-bottom:1px solid grey;
+		em{
+			float:right;
+			color:grey;
+		}
+	}
+}
