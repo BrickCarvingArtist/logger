@@ -37,8 +37,47 @@ export default (router, request) => {
 	router
 		.route("/api/log/visitorheader/search/:id")
 		.get((req, res, next) => {
-			let id = req.params.id;
-			Agent.findById(id, (err, data) => {
+			const getSearch = (id, option) => {
+				let searchType = 1,
+					search = {};
+				for(let i of option){
+					searchType &= i.id;
+				}
+				if(searchType){
+					search = new String(id);
+					search.type = "findById";
+				}else{
+					for(let i of option){
+						for(let j in i.agent){
+							if(!(i.agent[j] - i.id)){
+								search[i.type] = i.id ? j : 0;
+								break;
+							}
+						}
+					}
+					search.type = "findAll";
+				}
+				return search;
+			};
+			let id = req.params.id,
+				search = getSearch(id, [
+					{
+						type : "clientType",
+						id : id.slice(0, 1) - 0,
+						agent : clientId
+					},
+					{
+						type : "systemType",
+						id : id.slice(1, 3) - 0,
+						agent : systemId
+					},
+					{
+						type : "browserType",
+						id : id.slice(3) - 0,
+						agent : browserId
+					}
+				]);
+			Agent[search.type](search, (err, data) => {
 				if(err){
 					console.log(err);
 				}else{

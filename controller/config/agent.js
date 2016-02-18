@@ -1,8 +1,10 @@
 const clientId = {
+		"All" : 0,
 		"Mobile" : 1,
 		"PC" : 2
 	},
 	systemId = {
+		"All" : 0,
 		"Windows" : 1,
 		"OS X" : 2,
 		"Linux" : 3,
@@ -10,6 +12,7 @@ const clientId = {
 		"other" : 5
 	},
 	browserId = {
+		"All" : 0,
 		"MSIE 7.0" : 1,
 		"MSIE 8.0" : 2,
 		"MSIE 9.0" : 3,

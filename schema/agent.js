@@ -45,6 +45,16 @@ Log.statics = {
 			})
 			.select("-_id -__v -client -system -browser")
 			.exec(callback);
+	},
+	findAll(option, callback){
+		return this
+			.find({
+				client : option.clientType || /.*/,
+				system : option.systemType || /.*/,
+				browser : option.browserType || /.*/
+			})
+			.select("-_id -__v -client -system -browser")
+			.exec(callback);
 	}
 };
 export default Log;
