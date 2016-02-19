@@ -14,6 +14,8 @@ const addZero = (...args) => {
 	},
 	getIp = (req) => {
 		console.log(req.headers['x-forwarded-for']);
+		console.log(req.connection.remoteAddress);
+		console.log(req.socket.remoteAddress);
 		return (req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress).replace(/::ffff:/, "");
 	},
 	getTime = (_date, type) => {
