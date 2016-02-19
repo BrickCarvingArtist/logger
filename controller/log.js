@@ -1,16 +1,7 @@
-import AgentModel from "../model/Agent";
+import AgentModel from "../model/agent";
 import Agent from "../controller/agent";
+import {addZero, getIp} from "../util";
 import {clientId, systemId, browserId} from "./config/agent";
-const addZero = (num, length) => {
-	let chars = num.toString().split(""),
-		charsLen = chars.length;
-	if(length - chars.length){
-		for(let i = 0; i <= length - chars.length; i++){
-			chars.unshift("0");
-		}
-	}
-	return chars.join("");
-};
 const combineId = (clientType, systemType, browserType) => {
 	return `${addZero(clientId[clientType], 1)}${addZero(systemId[systemType], 2)}${addZero(browserId[browserType], 3)}`;
 };
@@ -24,6 +15,7 @@ export default (req) => {
 		agent = Agent(headers["user-agent"]),
 		agentModel = new AgentModel({
 			id : combineId(agent.getClientType(), agent.getSystemType(), agent.getBrowserType()),
+			ip : getIp(req),
 			agent : headers["user-agent"],
 			client : agent.getClientType(),
 			system : agent.getSystemType(),

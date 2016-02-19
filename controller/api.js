@@ -1,18 +1,42 @@
 import Agent from "../model/agent";
+import Func from "../model/func";
 import {clientId, systemId, browserId} from "./config/agent";
 export default (router, request) => {
 	router
-		.route("/api/log/func/:id")
+		.route("/api/log/setfunc/:id")
 		.get((req, res, next) => {
 			let id = req.params.id;
 			if(isNaN(id - 0)){
-				next();
+				res.status(403);
 			}else{
-				res.send(id);
+				let func = new Func({
+					id : id,
+					leader : id.slice(0, 1),
+					module : id.slice(1, 3),
+					action : id.slice(3)
+				});
+				func.save((err, data) => {
+					if(err){
+						console.log(err);
+					}else{
+						res.send(`Save the request id(${id}) successfully.`);
+					}
+				});
 			}
 		});
 	router
-		.route("/del/log/func")
+		.route("/api/log/getfunc")
+		.get((req, res, next) => {
+			Func.fetch((err, data) => {
+				if(err){
+					console.log(err);
+				}else{
+					res.json(data);
+				}
+			});
+		});
+	router
+		.route("/del/log/visitorheader")
 		.get((req, res, next) => {
 			Agent.remove({}, (err, data) => {
 				if(err){

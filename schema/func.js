@@ -1,25 +1,16 @@
 import mongoose from "mongoose";
-const Log = new mongoose.Schema({
+const Func = new mongoose.Schema({
 	id : {
 		type : Number,
 		required : 1 
 	},
-	ip : {
+	leader : {
 		type : String
 	},
-	agent : {
+	module : {
 		type : String
 	},
-	client : {
-		type : String
-	},
-	system : {
-		type : String
-	},
-	browser : {
-		type : String
-	},
-	referer : {
+	action : {
 		type : String
 	},
 	createTime : {
@@ -27,11 +18,11 @@ const Log = new mongoose.Schema({
 		default : Date.now
 	}
 });
-Log.pre("save", (next) => {
+Func.pre("save", (next) => {
 	next();
 });
-Log.methods = {};
-Log.statics = {
+Func.methods = {};
+Func.statics = {
 	fetch(callback){
 		return this
 			.find({})
@@ -46,18 +37,18 @@ Log.statics = {
 			.find({
 				id
 			})
-			.select("-_id -__v -client -system -browser")
+			.select("-_id -__v -leader -module -action")
 			.exec(callback);
 	},
 	findAll(option, callback){
 		return this
 			.find({
-				client : option.clientType || /.*/,
-				system : option.systemType || /.*/,
-				browser : option.browserType || /.*/
+				leader : option.leader || /.*/,
+				module : option.module || /.*/,
+				action : option.action || /.*/
 			})
-			.select("-_id -__v -client -system -browser")
+			.select("-_id -__v -leader -module -action")
 			.exec(callback);
 	}
 };
-export default Log;
+export default Func;

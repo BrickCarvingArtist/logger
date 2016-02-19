@@ -1,16 +1,7 @@
 import React, {Component} from "react";
 import {render, findDOMNode} from "react-dom";
 import {createStore} from "redux";
-const addZero = (num, length) => {
-	let chars = num.toString().split(""),
-		charsLen = chars.length;
-	if(length - charsLen){
-		for(let i = 0; i < length - charsLen; i++){
-			chars.unshift("0");
-		}
-	}
-	return chars.join("");
-};
+import {addZero, getTime} from "../../util";
 let store = createStore((state = [], action) => {
 	if(state[action.type]){
 		for(let i in action){
@@ -154,7 +145,7 @@ class Result extends Component{
 				<strong>
 					{data.agent}
 				</strong>
-				<em>{`${new Date(data.createTime)}`}</em>
+				<em>{`ip:${data.ip}\tvisit time:${getTime(data.createTime)}`}</em>
 			</p>
 		)
 	}
