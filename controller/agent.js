@@ -4,7 +4,7 @@ export default (agent) => {
 		getClientType(){
 			const mobileTypes = ["Mobile", "NetFront", "Android", "SymbianOS", "MQQBrowser", "UC"],
 				reg = new RegExp(`${mobileTypes.join("|")}`, "i"); 
-			return agent.match(reg) ? mobile : "PC";
+			return agent.match(reg) ? "Mobile" : "PC";
 		},
 		getSystemType(){
 			let systemTypes = [];

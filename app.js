@@ -1,6 +1,5 @@
 import express from "express";
 import bodyParser from "body-parser";
-import path from "path";
 import request from "request";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
