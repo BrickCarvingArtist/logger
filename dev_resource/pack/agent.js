@@ -40,7 +40,9 @@ class Filter extends Component{
 		const userClass = props.userClass,
 			name = props.name;
 		this.handleChange = (e) => {
-			let _state = {};
+			let _state = {
+				logId : 0
+			};
 			_state[name] = e.target.value;
 			userClass.setState(_state);
 		};
