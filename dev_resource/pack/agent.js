@@ -106,7 +106,7 @@ class Filters extends Component{
 			);
 		});
 		lists.push(
-			<IdInput userClass={this} />
+			<IdInput userClass={this} key={99} />
 		);
 		return (
 			<div className="filters">
@@ -174,14 +174,14 @@ class Results extends Component{
 				});
 			}else{
 				lists[0] = (
-					<p>
+					<p key="0">
 						{results}
 					</p>
 				);
 			}
 		}else{
 			lists[0] = (
-				<p>
+				<p key="0">
 					{this.props.noDataMsg}
 				</p>
 			);

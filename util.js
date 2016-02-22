@@ -22,11 +22,21 @@ const addZero = (...args) => {
 			date = addZero($date.getDate()),
 			hour = addZero($date.getHours()),
 			minute = addZero($date.getMinutes()),
-			second = addZero($date.getMinutes());
+			second = addZero($date.getMinutes()),
+			dayArr = ["日", "一", "二", "三", "四", "五", "六"],
+			day = `${dayArr[$date.getDay()]}`;
 		return [
 				`${year}-${month}-${date} ${hour}:${minute}:${second}`,
 				`${year}/${month}/${date} ${hour}:${minute}:${second}`,
-				`${year}年${month}月${date}日${hour}时${minute}分${second}`
+				`${year}年${month}月${date}日${hour}时${minute}分${second}秒`,
+				`${year}年${month}月${date}日 ${hour}:${minute}:${second}`,
+				`${year}-${month}-${date}`,
+				`${year}/${month}/${date}`,
+				`${year}年${month}月${date}日`,
+				`${hour}:${minute}:${second}`,
+				`${hour}时${minute}分${second}秒`,
+				`${year}年${month}月${date}日 星期${day}`,
+				`星期${day}`,
 			][type || 0];
 	};
 export {

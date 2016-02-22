@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-const Func = new mongoose.Schema({
+import {Schema} from "mongoose";
+const Func = new Schema({
 	id : {
 		type : Number,
 		required : 1 
